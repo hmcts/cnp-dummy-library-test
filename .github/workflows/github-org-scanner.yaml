@@ -1,0 +1,26 @@
+name: github_org_repo_scanner
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: read
+jobs:
+  org_repo_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.DEPENDENCY_UPDATER_APP_ID }}
+          private_key: ${{ secrets.DEPENDENCY_UPDATER_APP_PRIVATE_KEY }}
+
+      - name: Sample run
+        run: |
+          python3 .github/scripts/github-org-repo-scanner.py
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
