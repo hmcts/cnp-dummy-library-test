@@ -1,0 +1,39 @@
+---
+repos:
+  # renovate: datasource=github-releases
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.77.0
+    hooks:
+      - id: terraform_fmt
+  # renovate: datasource=github-releases
+  - repo: https://github.com/terraform-docs/terraform-docs
+    rev: v0.16.0
+    hooks:
+      - id: terraform-docs-system
+        args: [
+          "markdown", "table", "components/dt-availability-dashboards",
+          "--output-file", "../../README.md"
+        ]
+  # renovate: datasource=github-tags
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.29.0
+    hooks:
+      - id: yamllint
+  # renovate: datasource=github-releases
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-json
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  # renovate: datasource=github-tags
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+  # renovate: datasource=github-tags
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
