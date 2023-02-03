@@ -1,0 +1,24 @@
+---
+name: Run renovate-config-validator
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run renovate-config-validator
+        run: >
+          docker run
+          --volume $(pwd):/repo:Z
+          --workdir="/repo"
+          --env LOG_LEVEL=debug
+          --rm
+          renovate/renovate:slim
+          renovate-config-validator
