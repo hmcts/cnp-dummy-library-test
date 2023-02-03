@@ -11,7 +11,7 @@ repos:
     hooks:
       - id: terraform-docs-system
         args: [
-          "markdown", "table", "components/dt-availability-dashboards",
+          "markdown", "table", "components/cnp-dummy-library-test",
           "--output-file", "../../README.md"
         ]
   # renovate: datasource=github-tags

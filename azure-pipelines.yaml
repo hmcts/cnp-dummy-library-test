@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/master
+      ref: refs/heads/DTSPO-9742/terraform_nagger
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts (1)'
 
