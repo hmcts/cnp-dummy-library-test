@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import logging
@@ -26,7 +27,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger()
 
-
 github_json_fields = (
     "name",
     "nameWithOwner",
@@ -48,22 +48,61 @@ command = [
     "list",
     "hmcts",
     "--no-archived",
+    "--limit",
+    "100",
+    "--visibility",
+    "public",
     "--json",
     ",".join(github_json_fields),
-    "--limit 3000",
 ]
 
 try:
     run_command = subprocess.run(command, capture_output=True)
-    result = json.loads(run_command.stdout.decode("utf-8"))
 
-    logger.info(f"Processing {len(result)} repositories...")
+    results = json.loads(run_command.stdout.decode("utf-8"))
 
-    for repo in result:
-        logger.info(f'Processing {repo["name"]}')
+    # Convert languages object to a list in each of GH repo responses.
+    for item in results:
+        languages = item.get("languages")
+        if languages:
+            item["languages"] = [language["node"]["name"] for language in languages]
 
-except JSONDecodeError:
-    print("gh cli error")
+    logging.debug(json.dumps(results[0], indent=4))
+
+    # Sort all responses by name, required for job slicing to overcome /256 per job.
+    results_sorted = sorted(results, key=lambda x: x["name"])
+
+    # Generate matrix objects for 2048 possible items
+    matrix00 = json.dumps(results_sorted[0:256])
+    matrix01 = json.dumps(results_sorted[256:512])
+    matrix02 = json.dumps(results_sorted[512:768])
+    matrix03 = json.dumps(results_sorted[768:1024])
+    matrix04 = json.dumps(results_sorted[1024:1280])
+    matrix05 = json.dumps(results_sorted[1280:1536])
+    matrix06 = json.dumps(results_sorted[1536:1792])
+    matrix07 = json.dumps(results_sorted[1792:2048])
+
+    response_json = json.dumps(results_sorted)
+
+    logger.info(f'GH CLI arguments for debugging: {" ".join(command)}')
+    logger.info(
+        f"Processing {len(results_sorted)} repositories "
+        f"over {round(len(results_sorted)/256)} matrix jobs..."
+    )
+
+    with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+        print(f"matrix00={matrix00}", file=fh)
+        print(f"matrix01={matrix01}", file=fh)
+        print(f"matrix02={matrix02}", file=fh)
+        print(f"matrix03={matrix03}", file=fh)
+        print(f"matrix04={matrix04}", file=fh)
+        print(f"matrix05={matrix05}", file=fh)
+        print(f"matrix06={matrix06}", file=fh)
+        print(f"matrix07={matrix07}", file=fh)
+
+except JSONDecodeError as e:
+    logger.error("Github CLI execution error\n\n")
+    logger.error(e)
 except Exception as e:
     logger.error("Unknown error occurred")
     raise Exception(e)
