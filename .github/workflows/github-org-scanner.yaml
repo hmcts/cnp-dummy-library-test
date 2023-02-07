@@ -1,0 +1,52 @@
+---
+name: github_org_repo_scanner
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: read
+jobs:
+  generate_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix00: ${{ steps.generate_matrix.outputs.matrix00 }}
+      matrix01: ${{ steps.generate_matrix.outputs.matrix01 }}
+      matrix02: ${{ steps.generate_matrix.outputs.matrix02 }}
+      matrix03: ${{ steps.generate_matrix.outputs.matrix03 }}
+      matrix04: ${{ steps.generate_matrix.outputs.matrix03 }}
+      matrix05: ${{ steps.generate_matrix.outputs.matrix03 }}
+      matrix06: ${{ steps.generate_matrix.outputs.matrix03 }}
+      matrix07: ${{ steps.generate_matrix.outputs.matrix03 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.DEPENDENCY_UPDATER_APP_ID }}
+          private_key: ${{ secrets.DEPENDENCY_UPDATER_APP_PRIVATE_KEY }}
+
+      - name: Generate Matrix
+        id: generate_matrix
+        run: |
+          python3 .github/scripts/github-org-repo-scanner.py
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+
+  process00:
+    needs: generate_matrix
+    if: needs.generate_matrix.outputs.matrix00 != '[]'
+    runs-on: ubuntu-latest
+    name: ${{ matrix.repo.name }}
+    strategy:
+      matrix:
+        repo: ${{ fromJson(needs.generate_matrix.outputs.matrix00) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/process_repo
+        with:
+          matrix: ${{ toJSON(matrix) }}
