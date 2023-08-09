@@ -1,0 +1,29 @@
+---
+name: Process_repo
+id: process_repo
+
+inputs:
+  matrix:
+    description: 'Repo object from scanner'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Checkout child repository
+      uses: actions/checkout@v3
+      with:
+        path: child_repo
+        repository: ${{ matrix.repo.nameWithOwner }}
+
+    - id: process_hcl
+      name: Process HCL
+      if: contains(matrix.repo.languages, 'HCL')
+      shell: bash
+      run: |
+        set -x
+        echo Run ${{ matrix.repo.name }}
+        echo THIS REPO HAS HCL... PROCESSING
