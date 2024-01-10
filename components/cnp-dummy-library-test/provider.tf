@@ -12,7 +12,7 @@ terraform {
     }
     azuredevops = {
       source  = "microsoft/azuredevops"
-      version = "0.1.0"
+      version = "0.11.0"
     }
     pkcs12 = {
       source  = "chilicat/pkcs12"
