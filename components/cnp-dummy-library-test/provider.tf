@@ -24,7 +24,7 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "5.3.0"
+      version = "5.45.0"
     }
     dynatrace = {
       version = "1.18.1"
