@@ -100,7 +100,7 @@ stages:
       - job:
         displayName: Terraform Nagger
         pool:
-          vmImage: ${{ variable.agentPool }}
+          vmImage: ${{ variables.agentPool }}
         timeoutInMinutes: ${{ variables.timeoutInMinutes }}
         steps:
           - template: steps/terraform-version-checker.yaml@cnp-azuredevops-libraries
