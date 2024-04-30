@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/master
+      ref: refs/heads/dtspo-10133-reinstate-nagger
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts'
 
@@ -94,6 +94,18 @@ stages:
               keyvaultSecret: 'azure-devops-sp-token'
               serviceConnection: ${{ parameters.kvConnectedServiceName }}
               overrideAction: ${{ parameters.overrideAction }}
+
+  - stage: Terraform Nagger Check
+    jobs:
+      - job:
+        displayName: Terraform Nagger
+        pool:
+          vmImage: ${{ variable.agentPool }}
+        timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+        steps:
+          - template: steps/terraform-version-checker.yaml@cnp-azuredevops-libraries
+            parameters:
+              serviceConnection: ${{ parameters.kvConnectedServiceName }}
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: ${{ deployment.deployment }}
