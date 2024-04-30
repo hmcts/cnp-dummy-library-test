@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/master
+      ref: refs/heads/dtspo-17345-reinstate-nagger
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts'
 
@@ -106,7 +106,6 @@ stages:
           - template: steps/terraform-version-checker.yaml@cnp-azuredevops-libraries
             parameters:
               kvConnectedServiceName: ${{ parameters.kvConnectedServiceName }}
-            ref: refs/heads/dtspo-17345-reinstate-nagger
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: ${{ deployment.deployment }}
