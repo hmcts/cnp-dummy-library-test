@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/dtspo-10133-reinstate-nagger
+      ref: refs/heads/dtspo-17345-reinstate-nagger
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts'
 
