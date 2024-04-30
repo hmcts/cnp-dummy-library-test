@@ -98,6 +98,19 @@ stages:
   - stage: terraform_nagger_check
     jobs:
       - job:
+        displayName: stat file
+        pool:
+          vmImage: ${{ variables.agentPool }}
+        timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+        steps:
+          - task: Bash@3
+            displayName: stat file
+            inputs:
+              targetType: 'inline'
+              script: |
+                stat $(System.DefaultWorkingDirectory)/cnp-azuredevops-libraries/scripts/ado-terraform-nagger.py
+              workingDirectory: ${{ parameters.workingDirectory}}
+      - job:
         displayName: Terraform Nagger
         pool:
           vmImage: ${{ variables.agentPool }}
