@@ -109,7 +109,7 @@ stages:
               targetType: 'inline'
               script: |
                 stat $(System.DefaultWorkingDirectory)/cnp-azuredevops-libraries/scripts/ado-terraform-nagger.py
-              workingDirectory: ${{ parameters.workingDirectory}}
+
       - job:
         displayName: Terraform Nagger
         pool:
