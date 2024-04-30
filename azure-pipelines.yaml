@@ -105,7 +105,7 @@ stages:
         steps:
           - template: steps/terraform-version-checker.yaml@cnp-azuredevops-libraries
             parameters:
-              serviceConnection: ${{ parameters.kvConnectedServiceName }}
+              kvConnectedServiceName: ${{ parameters.kvConnectedServiceName }}
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: ${{ deployment.deployment }}
