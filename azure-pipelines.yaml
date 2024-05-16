@@ -95,18 +95,6 @@ stages:
               serviceConnection: ${{ parameters.kvConnectedServiceName }}
               overrideAction: ${{ parameters.overrideAction }}
 
-  - stage: terraform_nagger_check
-    jobs:
-      - job:
-        displayName: Terraform Nagger
-        pool:
-          vmImage: ${{ variables.agentPool }}
-        timeoutInMinutes: ${{ variables.timeoutInMinutes }}
-        steps:
-          - template: steps/terraform-version-checker.yaml@cnp-azuredevops-libraries
-            parameters:
-              kvConnectedServiceName: ${{ parameters.kvConnectedServiceName }}
-
   - ${{ each deployment in parameters.environment_components }}:
       - stage: ${{ deployment.deployment }}
         dependsOn: ${{ deployment.dependsOn }}
