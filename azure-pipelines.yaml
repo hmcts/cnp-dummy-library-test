@@ -34,17 +34,17 @@ parameters:
         service_connection: dts-sharedservices-sbox
         dependsOn: Precheck
 
-      # - deployment: demo_cnp_dummy_library_test
-      #   environment: demo
-      #   component: cnp-dummy-library-test
-      #   service_connection: dts-sharedservices-demo
-      #   dependsOn: Precheck
+      - deployment: demo_cnp_dummy_library_test
+        environment: demo
+        component: cnp-dummy-library-test
+        service_connection: dts-sharedservices-demo
+        dependsOn: Precheck
 
-      # - deployment: ithc_cnp_dummy_library_test
-      #   environment: ithc
-      #   component: cnp-dummy-library-test
-      #   service_connection: dts-sharedservices-ithc
-      #   dependsOn: Precheck
+      - deployment: ithc_cnp_dummy_library_test
+        environment: ithc
+        component: cnp-dummy-library-test
+        service_connection: dts-sharedservices-ithc
+        dependsOn: Precheck
 
       # - deployment: ptlsbox_cnp_dummy_library_test
       #   environment: ptlsbox
