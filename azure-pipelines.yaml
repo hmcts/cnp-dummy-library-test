@@ -90,6 +90,7 @@ stages:
         steps:
           - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
             parameters:
+              environment_components: ${{ parameters.environment_components }}
               keyvaultName: 'infra-vault-nonprod'
               keyvaultSecret: 'azure-devops-sp-token'
               serviceConnection: ${{ parameters.kvConnectedServiceName }}
