@@ -30,31 +30,31 @@ parameters:
     default:
       - deployment: sbox_cnp_dummy_library_test
         environment: sbox
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-sbox
         service_connection: dts-sharedservices-sbox
         dependsOn: Precheck
 
       - deployment: demo_cnp_dummy_library_test
         environment: demo
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-demo
         service_connection: dts-sharedservices-demo
         dependsOn: Precheck
 
       - deployment: ithc_cnp_dummy_library_test
         environment: ithc
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-ithc
         service_connection: dts-sharedservices-ithc
         dependsOn: Precheck
 
       - deployment: ptlsbox_cnp_dummy_library_test
         environment: ptlsbox
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-pltsbox
         service_connection: dts-sharedservicesptl-sbox
         dependsOn: Precheck
 
       - deployment: aat_cnp_dummy_library_test
         environment: stg
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-stg
         service_connection: dts-sharedservices-stg
         dependsOn: Precheck
 
