@@ -36,19 +36,19 @@ parameters:
 
       - deployment: demo_cnp_dummy_library_test
         environment: demo
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-test-2
         service_connection: dts-sharedservices-demo
         dependsOn: Precheck
 
       - deployment: ithc_cnp_dummy_library_test
         environment: ithc
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-test-3
         service_connection: dts-sharedservices-ithc
         dependsOn: Precheck
 
       - deployment: ptlsbox_cnp_dummy_library_test
         environment: ptlsbox
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-test-2
         service_connection: dts-sharedservicesptl-sbox
         dependsOn: Precheck
 
@@ -60,7 +60,7 @@ parameters:
 
       - deployment: perftest_cnp_dummy_library_test
         environment: test
-        component: cnp-dummy-library-test
+        component: cnp-dummy-library-test-3
         service_connection: dts-sharedservices-test
         dependsOn: Precheck
 
