@@ -96,25 +96,25 @@ stages:
               overrideAction: ${{ parameters.overrideAction }}
               environment_components: ${{ parameters.environment_components }}
 
-  - ${{ each deployment in parameters.environment_components }}:
-      - stage: ${{ deployment.deployment }}
-        dependsOn: ${{ deployment.dependsOn }}
-        jobs:
-          - job: TerraformPlanApply
-            displayName: ${{ deployment.environment }} - terraform ${{ parameters.overrideAction }}
-            pool:
-              vmImage: ${{ variables.agentPool }}
-            timeoutInMinutes: ${{ variables.timeoutInMinutes }}
-            steps:
-              - template: steps/terraform.yaml@cnp-azuredevops-libraries
-                parameters:
-                  overrideAction: ${{ parameters.overrideAction }}
-                  environment: ${{ deployment.environment }}
-                  component: ${{ deployment.component }}
-                  kvConnectedServiceName: ${{ parameters.kvConnectedServiceName }}
-                  serviceConnection: ${{ deployment.service_connection }}
-                  terraformInitSubscription: ${{ variables.terraformInitSubscription }}
-                  product: ${{ variables.product }}
-                  planCommandOptions: ${{ variables.globalTfCommandOptions }}
-                  applyCommandOptions: ${{ variables.globalTfCommandOptions }}
-                  destroyCommandOptions: ${{ variables.globalTfCommandOptions }}
+  # - ${{ each deployment in parameters.environment_components }}:
+  #     - stage: ${{ deployment.deployment }}
+  #       dependsOn: ${{ deployment.dependsOn }}
+  #       jobs:
+  #         - job: TerraformPlanApply
+  #           displayName: ${{ deployment.environment }} - terraform ${{ parameters.overrideAction }}
+  #           pool:
+  #             vmImage: ${{ variables.agentPool }}
+  #           timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+  #           steps:
+  #             - template: steps/terraform.yaml@cnp-azuredevops-libraries
+  #               parameters:
+  #                 overrideAction: ${{ parameters.overrideAction }}
+  #                 environment: ${{ deployment.environment }}
+  #                 component: ${{ deployment.component }}
+  #                 kvConnectedServiceName: ${{ parameters.kvConnectedServiceName }}
+  #                 serviceConnection: ${{ deployment.service_connection }}
+  #                 terraformInitSubscription: ${{ variables.terraformInitSubscription }}
+  #                 product: ${{ variables.product }}
+  #                 planCommandOptions: ${{ variables.globalTfCommandOptions }}
+  #                 applyCommandOptions: ${{ variables.globalTfCommandOptions }}
+  #                 destroyCommandOptions: ${{ variables.globalTfCommandOptions }}
