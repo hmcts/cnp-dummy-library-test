@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/update-missing-slack-msg
+      ref: refs/heads/missing-slack-id-improvment
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts'
 
