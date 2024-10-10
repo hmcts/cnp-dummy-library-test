@@ -27,7 +27,7 @@ terraform {
       version = "5.3.0"
     }
     dynatrace = {
-      version = "1.18.1"
+      version = "1.69.0"
       source  = "dynatrace-oss/dynatrace"
     }
   }
