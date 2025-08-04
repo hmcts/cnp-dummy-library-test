@@ -20,7 +20,7 @@ terraform {
     }
     panos = {
       source  = "PaloAltoNetworks/panos"
-      version = "1.11.0"
+      version = "1.11.1"
     }
     github = {
       source  = "integrations/github"
